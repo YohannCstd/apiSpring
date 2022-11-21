@@ -20,15 +20,25 @@ public class PostController {
     private PostRepository postRepository;
 
 
+
+
     @GetMapping("/post")
     public ResponseEntity<ArrayList<Post>> getAllPost() {
         return new ResponseEntity<>(postRepository.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Optional<Post>> getPost(@PathVariable Long id) {
-        Optional<Post> persistedPost = postRepository.findById(id);
+    public ResponseEntity<Post> getPost(@PathVariable long id) {
+        Post persistedPost = postRepository.findById(id);
         return new ResponseEntity<>(persistedPost, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public ResponseEntity<String> deletePost(@PathVariable long id) {
+        if(postRepository.findById(id) == null)return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Post post = postRepository.findById(id);
+        postRepository.deleteById(post.getPostId());
+        return new ResponseEntity<>("delete success", HttpStatus.OK);
     }
 
     @PostMapping(value = "/initPost", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
