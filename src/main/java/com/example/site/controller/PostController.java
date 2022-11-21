@@ -11,6 +11,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +23,12 @@ public class PostController {
     @GetMapping("/post")
     public ResponseEntity<ArrayList<Post>> getAllPost() {
         return new ResponseEntity<>(postRepository.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Optional<Post>> getPost(@PathVariable Long id) {
+        Optional<Post> persistedPost = postRepository.findById(id);
+        return new ResponseEntity<>(persistedPost, HttpStatus.OK);
     }
 
     @PostMapping(value = "/initPost", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
