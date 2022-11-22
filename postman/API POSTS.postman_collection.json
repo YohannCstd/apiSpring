@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "2a21a4af-81cc-48d8-b779-6b020832d806",
+		"name": "API POSTS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24209459"
+	},
+	"item": [
+		{
+			"name": "REGISTER USER",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"\",\r\n    \"password\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9080/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN USER",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Yohann\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9080/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL POSTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/api/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET POST WITH ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/api/posts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "document",
+							"type": "file",
+							"src": "/C:/Users/yoyoc/Pictures/Camera Roll/WIN_20220324_11_51_46_Pro.jpg"
+						},
+						{
+							"key": "title",
+							"value": "Fou",
+							"type": "text"
+						},
+						{
+							"key": "note",
+							"value": "LA photo de fou",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9080/api/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MODIFICATION POST",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0aG9tYXMiLCJpYXQiOjE2NjkxMTU1Mjh9.dEnBX0luv7ivJ3PKElEGJsAV8h6O6NekoBgTQhoEq25yp7nRP8XTvfqwMzwln2CzUp5XzuhcU50P4OsS0Ot9Ag",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Nouveau titre",
+							"type": "text"
+						},
+						{
+							"key": "note",
+							"value": "nouvelle description",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9080/api/posts/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"posts",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE POST WITH ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/api/posts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
