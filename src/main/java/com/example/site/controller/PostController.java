@@ -26,7 +26,7 @@ public class PostController {
      * */
     @GetMapping("/posts")
     public ResponseEntity<?> getAllPost() {
-        if(postRepository.findAll() == null) return new ResponseEntity<>("Post not found !",HttpStatus.NOT_FOUND);
+        if(postRepository.findAll() == null || postRepository.findAll().size() == 0) return new ResponseEntity<>("Post not found !",HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(postRepository.findAll(), HttpStatus.OK);
     }
 

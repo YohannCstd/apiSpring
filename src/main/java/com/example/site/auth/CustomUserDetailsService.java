@@ -11,6 +11,7 @@ import java.util.Collections;
 @Service
 public class CustomUserDetailsService  implements UserDetailsService {
 
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -19,8 +20,8 @@ public class CustomUserDetailsService  implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if(!userRepository.existsByName(username)) throw new UsernameNotFoundException("Username not found !");
+    public UserDetails loadUserByUsername(String username) {
+        if(!userRepository.existsByName(username)) return null;
         com.example.site.entity.User user = userRepository.findByName(username);
         return new User(user.getName(), user.getPassword(), Collections.emptyList());
     }
