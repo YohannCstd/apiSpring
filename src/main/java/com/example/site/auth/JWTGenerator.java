@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Component
 public class JWTGenerator {
-
+    //Il est possible d'ajouter une date d'expiration au token il suffit d'enlever les deux lignes en commentaires
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();
         Date currentDate = new Date();
@@ -38,7 +38,7 @@ public class JWTGenerator {
             Jwts.parser().setSigningKey(SecurityConstants.JWT_SECRET).parseClaimsJws(token);
             return true;
         } catch (Exception ex) {
-            throw new AuthenticationCredentialsNotFoundException("JWT is incorrect");
+            return false;
         }
     }
 }

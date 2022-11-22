@@ -1,11 +1,11 @@
 package com.example.site.entity;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "IMAGES")
+@Table(name = "POST")
 public class Post {
     public static final String TABLE_NAME="POST";
-
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -53,5 +53,4 @@ public class Post {
     public String toString() {
         return this.getPostId() + " " + this.getTitle() + " " + this.getNote() + " " + this.getSrc();
     }
-
 }
