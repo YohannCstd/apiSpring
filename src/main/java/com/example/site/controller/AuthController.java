@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller qui permet de gérer l'authentification d'un utilisateur
+ * */
 @RestController
 @RequestMapping("/api")
 public class AuthController {
@@ -35,7 +38,11 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
         this.jwtGenerator = jwtGenerator;
     }
-
+    /**
+     * Methode qui permet d'avoir un token pour un utilisateur (username,password)
+     * @param loginDto
+     * @return token for user
+     * */
     @PostMapping("/auth/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDto loginDto){
         Authentication authentication = authenticationManager.authenticate(
@@ -47,11 +54,14 @@ public class AuthController {
         return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
     }
 
+    /**
+     * Méthode qui permet d'ajouter un nouveau utilisateur dans la base de données
+     * @param registerDto
+     * @return String avec le message associé
+     * */
     @PostMapping("/auth/register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
-        if (userRepository.existsByName(registerDto.getUsername())) {
-            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
-        }
+        if (userRepository.existsByName(registerDto.getUsername())) return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         userRepository.save(new User(registerDto.getUsername(),passwordEncoder.encode(registerDto.getPassword())));
         return new ResponseEntity<>("Successfully registered user!", HttpStatus.OK);
     }
