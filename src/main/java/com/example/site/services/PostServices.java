@@ -53,6 +53,7 @@ public class PostServices {
     }
 
     public ResponseEntity<String> update(long id,String title,String note){
+        if(postRepository.findById(id) == null) return new ResponseEntity<>("Post not found !", HttpStatus.BAD_REQUEST);
         if(title == null) return new ResponseEntity<>("Title must be sent !", HttpStatus.BAD_REQUEST);
         if(title.length() > 50) return new ResponseEntity<>("Title must be shorter than 50chr !", HttpStatus.BAD_REQUEST);
         if(note.length() > 255) return new ResponseEntity<>("Note must be shorter than 255chr !", HttpStatus.BAD_REQUEST);
