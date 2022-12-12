@@ -61,12 +61,19 @@ public class AuthController {
      * */
     @PostMapping("/auth/register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+        System.out.println(registerDto.getUsername() + " USERNAMEEEEEEEEEEE");
+        System.out.println(registerDto.getPassword() + " PASSSWORRRRRRRRD");
         if(registerDto.getUsername().length() > 50) return new ResponseEntity<>("Username too long (50 characters)",HttpStatus.BAD_REQUEST);
         if(registerDto.getPassword().length() > 300) return new ResponseEntity<>("Password too long (300 characters)",HttpStatus.BAD_REQUEST);
         if(registerDto.getUsername() == null || registerDto.getPassword() == null) return new ResponseEntity<>("Username or password null !",HttpStatus.BAD_REQUEST);
         if(registerDto.getUsername().length() == 0 || registerDto.getPassword().length() == 0) return new ResponseEntity<>("Username or password empty !",HttpStatus.BAD_REQUEST);
+
+        if (userRepository.findByName(registerDto.getUsername().toLowerCase()) != null) {
+            if(userRepository.findByName(registerDto.getUsername().toLowerCase()).getName().equals(registerDto.getUsername().toLowerCase())) return new ResponseEntity<>("Username is already taken!",HttpStatus.BAD_REQUEST);
+        }
+
         if (userRepository.existsByName(registerDto.getUsername())) return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
-        userRepository.save(new User(registerDto.getUsername(),passwordEncoder.encode(registerDto.getPassword())));
+        userRepository.save(new User(registerDto.getUsername().toLowerCase(),passwordEncoder.encode(registerDto.getPassword())));
         return new ResponseEntity<>("Successfully registered user!", HttpStatus.OK);
     }
 }
