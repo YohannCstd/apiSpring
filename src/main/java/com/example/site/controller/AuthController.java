@@ -61,6 +61,8 @@ public class AuthController {
      * */
     @PostMapping("/auth/register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+        if(registerDto.getUsername().length() > 50) return new ResponseEntity<>("Username too long (50 characters)",HttpStatus.BAD_REQUEST);
+        if(registerDto.getPassword().length() > 300) return new ResponseEntity<>("Password too long (300 characters)",HttpStatus.BAD_REQUEST);
         if(registerDto.getUsername() == null || registerDto.getPassword() == null) return new ResponseEntity<>("Username or password null !",HttpStatus.BAD_REQUEST);
         if(registerDto.getUsername().length() == 0 || registerDto.getPassword().length() == 0) return new ResponseEntity<>("Username or password empty !",HttpStatus.BAD_REQUEST);
         if (userRepository.existsByName(registerDto.getUsername())) return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
